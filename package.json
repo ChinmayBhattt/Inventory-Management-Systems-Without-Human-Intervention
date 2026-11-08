@@ -1,0 +1,21 @@
+{
+  "name": "inventory-management",
+  "version": "1.0.0",
+  "description": "Pure software-based Autonomous Inventory Management System",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix frontend start",
+    "lint": "npm --prefix frontend run lint"
+  },
+  "keywords": [
+    "inventory",
+    "autonomous",
+    "supply-chain",
+    "fastapi",
+    "nextjs"
+  ],
+  "author": "Antigravity",
+  "license": "MIT"
+}
+
