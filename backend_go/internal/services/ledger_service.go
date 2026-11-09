@@ -157,3 +157,4 @@ func (s *LedgerService) RecordTransaction(tx *sql.Tx, it *models.InventoryTransa
 
 	return nil
 }
+

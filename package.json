@@ -6,7 +6,10 @@
     "dev": "npm --prefix frontend run dev",
     "build": "npm --prefix frontend run build",
     "start": "npm --prefix frontend start",
-    "lint": "npm --prefix frontend run lint"
+    "lint": "npm --prefix frontend run lint",
+    "backend": "./bin/server",
+    "backend:dev": "go run ./backend_go/cmd/server",
+    "backend:build": "go build -o bin/server ./backend_go/cmd/server"
   },
   "keywords": [
     "inventory",

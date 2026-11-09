@@ -91,3 +91,4 @@ func cleanDBPath(url string) string {
 	url = strings.TrimPrefix(url, "sqlite://")
 	return url
 }
+

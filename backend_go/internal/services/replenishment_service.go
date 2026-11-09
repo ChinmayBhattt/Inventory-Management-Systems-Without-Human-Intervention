@@ -207,9 +207,10 @@ func (s *ReplenishmentService) EvaluateSweep() (*models.ReplenishmentRunResult, 
 				poStatus = "PENDING_APPROVAL"
 			}
 
-			poID := fmt.Sprintf("po-%d-%s", now.UnixNano(), c.SKU[:4])
-			poNum := fmt.Sprintf("PO-%s-%04d", now.Format("20060102"), poCreatedCount+1)
-			expectedETA := now.Add(time.Duration(c.LeadTimeDays) * 24 * time.Hour).Format(time.RFC3339)
+			currentTime := time.Now().UTC()
+			poID := fmt.Sprintf("po-%d-%d", currentTime.UnixNano(), poCreatedCount+1)
+			poNum := fmt.Sprintf("PO-%s-%04d", currentTime.Format("20060102150405"), poCreatedCount+1)
+			expectedETA := currentTime.Add(time.Duration(c.LeadTimeDays) * 24 * time.Hour).Format(time.RFC3339)
 			pdfPath := fmt.Sprintf("./storage/purchase_orders/%s.pdf", poNum)
 
 			suppID := c.DefaultSupplierID
@@ -229,7 +230,7 @@ func (s *ReplenishmentService) EvaluateSweep() (*models.ReplenishmentRunResult, 
 			}
 
 			// Insert PO Item
-			poItemID := fmt.Sprintf("poi-%d", now.UnixNano())
+			poItemID := fmt.Sprintf("poi-%d-%d", currentTime.UnixNano(), poCreatedCount+1)
 			_, err = tx.Exec(`
 				INSERT INTO po_items (id, po_id, product_id, quantity_ordered, quantity_received, unit_cost, created_at, updated_at)
 				VALUES (?, ?, ?, ?, 0, ?, ?, ?)
@@ -250,7 +251,7 @@ func (s *ReplenishmentService) EvaluateSweep() (*models.ReplenishmentRunResult, 
 
 			// If manual review, insert Alert
 			if poStatus == "PENDING_APPROVAL" {
-				alertID := fmt.Sprintf("alt-%d", now.UnixNano())
+				alertID := fmt.Sprintf("alt-%d-%d", currentTime.UnixNano(), poCreatedCount+1)
 				msg := fmt.Sprintf("Purchase Order %s ($%.2f) exceeds autonomous threshold ($%.2f). Manager review required.", poNum, poCost, c.AutoApproveMax)
 				_, _ = tx.Exec(`
 					INSERT INTO alerts (id, alert_type, severity, product_id, warehouse_id, message, context_data, status, created_at, updated_at)

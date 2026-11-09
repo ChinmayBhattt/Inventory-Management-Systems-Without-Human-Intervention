@@ -103,3 +103,4 @@ func (s *GoodsReceiptService) ReceiveGoods(req *models.GoodsReceiptRequest) erro
 
 	return tx.Commit()
 }
+

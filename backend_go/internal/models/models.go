@@ -266,3 +266,4 @@ type ReplenishmentRunResult struct {
 	TotalCommittedValue    float64 `json:"total_committed_value"`
 	Timestamp              string  `json:"timestamp"`
 }
+

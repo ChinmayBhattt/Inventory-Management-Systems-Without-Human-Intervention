@@ -31,3 +31,4 @@ func Connect(dbPath string) (*DB, error) {
 	log.Printf("[Database] Connected successfully to SQLite: %s (WAL mode)", dbPath)
 	return &DB{DB: db}, nil
 }
+

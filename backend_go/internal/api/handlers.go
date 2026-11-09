@@ -404,3 +404,4 @@ func (h *Handlers) SupplierAck(w http.ResponseWriter, r *http.Request) {
 func (h *Handlers) OverdueScan(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]any{"overdue_pos": []any{}, "status": "scanned"})
 }
+

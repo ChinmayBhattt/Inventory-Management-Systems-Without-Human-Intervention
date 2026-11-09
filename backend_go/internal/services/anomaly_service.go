@@ -209,3 +209,4 @@ func (s *AnomalyService) dispatchSlackAlert(alertType, severity, message string)
 		_, _ = client.Post(s.cfg.SlackWebhookURL, "application/json", bytes.NewBuffer(body))
 	}()
 }
+
